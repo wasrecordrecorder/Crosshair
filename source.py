@@ -38,7 +38,7 @@ async def check_access(update: Update):
         return False
     return True
 
-current_directory = os.path.expanduser("~")  # Начинаем с домашней директории
+current_directory = os.path.expanduser("~")  
 
 async def mkdir(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_access(update):
@@ -63,14 +63,12 @@ async def cd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     if not context.args:
-        # Возврат к домашней директории
         current_directory = os.path.expanduser("~")
         await update.message.reply_text(f"Текущая директория: {current_directory}")
         return
 
     target_dir = ' '.join(context.args)
     try:
-        # Обработка абсолютных и относительных путей
         if os.path.isabs(target_dir):
             new_dir = target_dir
         else:
@@ -492,7 +490,6 @@ async def autostart(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     if not context.args:
-        # Показать текущие файлы в автозагрузке
         try:
             startup_path = os.path.join(
                 os.getenv('APPDATA'),
